@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="300px" height="500px" viewBox="125 43 250 414" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <rect x="125" y="43" width="250" height="414" style="fill: rgb(104, 169, 111);"/>
+    <path d="M 220 352 L 224 359 L 232 361 L 227 367 L 227 375 L 220 372 L 213 375 L 213 367 L 208 361 L 216 359 Z" style="fill: white;"/>
+    <path d="M 250 352 L 254 359 L 262 361 L 257 367 L 257 375 L 250 372 L 243 375 L 243 367 L 238 361 L 246 359 Z" style="fill: white;"/>
+    <path d="M 280 352 L 284 359 L 292 361 L 287 367 L 287 375 L 280 372 L 273 375 L 273 367 L 268 361 L 276 359 Z" style="fill: white;"/>
+    <g id="_1952261136784">
+      <path d="M 235 381 L 239 388 L 247 390 L 242 396 L 242 404 L 235 401 L 228 404 L 228 396 L 223 390 L 231 388 Z" style="fill: white;"/>
+      <path d="M 265 381 L 269 388 L 277 390 L 272 396 L 272 404 L 265 401 L 258 404 L 258 396 L 253 390 L 261 388 Z" style="fill: white;"/>
+    </g>
+    <path d="M316 310c1,2 1,3 1,4 0,3 -1,5 -3,7 -1,2 -3,3 -6,3 -2,0 -4,-1 -6,-2 -1,-1 -2,-2 -3,-4l-14 -33 -70 0 -14 33c-1,2 -2,3 -3,4 -2,1 -4,2 -6,2 -3,0 -5,-1 -6,-3 -2,-2 -3,-4 -3,-7 0,-1 0,-2 1,-4l53 -125c1,-3 3,-5 5,-6 2,-2 4,-3 7,-3l2 0c3,0 5,1 7,3 2,1 4,3 5,6l53 125zm-66 -109l-28 67 56 0 -28 -67z" style="fill: white; fill-rule: nonzero;"/>
+  </g>
+</svg>

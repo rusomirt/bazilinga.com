@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" viewBox="312 802 1856 1904" xmlns="http://www.w3.org/2000/svg" xmlns:bx="https://boxy-svg.com">
+  <defs>
+    <style id="bx-google-fonts">@import url(https://fonts.googleapis.com/css?family=Roboto:100,300,500,700,900,100italic,300italic,400,400italic,500italic,700italic,900italic);</style>
+  </defs>
+  <g id="Layer_x0020_1">
+    <g id="_1874606564816">
+      <ellipse cx="1240" cy="1754" rx="886" ry="908" style="fill: rgb(255, 255, 255); stroke: rgb(72, 148, 140); stroke-width: 79.1226;"/>
+      <path d="M 1001 2115 C 968 2126 929 2131 886 2131 C 771 2131 678 2087 678 2032 C 678 2005 695 1989 722 1967" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1001 1984 C 968 1995 929 2000 886 2000 C 771 2000 678 1957 678 1897 C 678 1875 695 1853 722 1836" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1001 1853 C 968 1863 929 1869 886 1869 C 771 1869 678 1825 678 1770 C 678 1743 695 1721 722 1705" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1001 1721 C 968 1733 929 1738 886 1738 C 771 1738 678 1688 678 1634 C 678 1606 695 1591 722 1568" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1050 1437 C 1077 1454 1093 1475 1093 1502 C 1093 1557 1001 1601 886 1601 C 766 1601 673 1557 673 1502 C 673 1475 695 1454 722 1437" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <ellipse cx="886" cy="1355" rx="207" ry="115" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;"/>
+      <path d="M 1372 2164 C 1400 2181 1422 2202 1422 2229 C 1422 2284 1329 2328 1208 2328 C 1093 2328 1001 2284 1001 2229 C 1001 2202 1018 2181 1045 2164" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1372 2032 C 1400 2049 1422 2071 1422 2099 C 1422 2153 1329 2197 1208 2197 C 1093 2197 1001 2153 1001 2099 C 1001 2071 1018 2049 1045 2032" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1367 1902 C 1400 1918 1422 1940 1422 1967 C 1422 2022 1329 2066 1208 2066 C 1093 2066 1001 2017 1001 1967 C 1001 1940 1018 1918 1045 1902" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <path d="M 1372 1770 C 1400 1787 1422 1808 1422 1836 C 1422 1890 1329 1935 1208 1935 C 1093 1935 1001 1885 1001 1836 C 1001 1808 1018 1787 1045 1770" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;" bx:origin="0.5 0.5"/>
+      <ellipse cx="1208" cy="1688" rx="207" ry="115" style="fill: none; stroke: rgb(72, 148, 140); stroke-width: 79.1226; stroke-linecap: round; stroke-linejoin: round;"/>
+    </g>
+  </g>
+  <rect x="1141.057" y="2026.095" width="369.584" height="389.954" style="fill: rgb(255, 255, 255);"/>
+  <text x="1184.708" y="2360.757" style="font-size: 553px; font-family: Roboto; word-spacing: 0px; font-weight: 900; fill: rgb(72, 148, 140);">x2</text>
+</svg>

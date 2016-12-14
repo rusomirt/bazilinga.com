@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="Test">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bazilinga</title>
+    <link rel="stylesheet" href="dist/foundation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/motion-ui/1.1.1/motion-ui.min.css" />
+    <link rel="stylesheet" href="dist/style.css">
+</head>
+<body ng-controller="MainCtrl">
+
+<!--====================================================================-->
+<!---------- HEADER ------------------------------------------------------>
+<header class="header-home">
+    <div class="header-home__wrap">
+    
+        <div class="topbar topbar--break-m-center">
+            <div class="topbar__left">
+                <div class="topbar__logo">
+                    <a href="#">
+                        <img src="img/bazilinga-logo.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="topbar__right">
+                <button type="button" class="topbar__enter-btn">
+                    Login
+                </button>
+                <button type="button" class="topbar__enter-btn">
+                    Sign Up
+                </button>
+                <button type="button" class="topbar__enter-btn">
+                    Free Trial
+                </button>
+            </div>
+        </div>
+        
+        <div class="site-motto">
+            <p class="site-motto__primary">Redesigh the way you learn languages</p>
+            <p class="site-motto__secondary">Learning Spanish optimized for speed and efficiency</p>
+        </div>
+
+        <div class="enter-btns">
+            <button class="enter-btns__btn enter-btns__btn--signup">{{hello}}</button>
+            <input type="text" ng-model="hello">
+            <button class="enter-btns__btn enter-btns__btn--signup">SIGN UP</button>
+            <button class="enter-btns__btn enter-btns__btn--tryfb">TRY WITH FACEBOOK</button>
+        </div>
+        
+    </div>
+</header>
+
+<!--====================================================================-->
+<!---------- MAIN CONTENT ------------------------------------------------>
+<main class="content">
+    <div class="content__wrap">
+        
+        <h1 class="content__header">Learn Spanish faster with Bazilinga</h1>
+        <p class="content__text">Bazilinga is a fast and fun way to learn Spanish language. Its content was optimized to reduce
+            repetitions and accelerate learning space. While you complete each challenge, we measure your
+            language skills and customize the followup content accordingly to speed up your progress even more. </p>
+        
+        <div class="desc">
+            <h1 class="desc__header">How does it work?</h1>
+            <div class="desc__blocks">
+                <div class="desc__block">
+                    <div class="desc__block-img desc__block-img--1"></div>
+                    <div class="desc__block-txt">Learning curve, meticulously optimized
+                    with collected users statistics will speed up progress.</div>
+                </div>
+                <div class="desc__block">
+                    <div class="desc__block-img desc__block-img--2"></div>
+                    <div class="desc__block-txt">Clear metric for language comprehension
+                    and vocabulary will show exactly how much you’ve learned at each step.</div>
+                </div>
+                <div class="desc__block">
+                    <div class="desc__block-img desc__block-img--3"></div>
+                    <div class="desc__block-txt">Individually generated content based on
+                    history of your learning will tailor learning experience for you.</div>
+                </div>
+            </div>
+            <div class="enter-btns">
+                <button class="enter-btns__btn enter-btns__btn--signup">SIGN UP</button>
+            </div>
+        </div>
+        
+        <div class="comments">
+            <h1 class="comments__header">Real people and their real comments</h1>
+            <div class="comments__carousel orbit" data-orbit>
+                <ul class="comments__slides-container orbit-container">
+                    <li class="is-active comments__slide orbit-slide">
+                        <div class="comments__comment"><span class="comments__link">@Bazilinga</span> is a great platform for my learning!<br>
+                            It was simple and I learned the process in my own pace.<br>
+                            I would recommended to a friend!
+                        </div>
+                    </li>
+                    <li class="comments__slide orbit-slide">
+                        <div class="comments__comment"><span class="comments__link">@Bazilinga</span> is a great platform for my learning!<br>
+                            It was simple and I learned the process in my own pace.<br>
+                            I would recommended to a friend!
+                        </div>
+                    </li>
+                    <li class="comments__slide orbit-slide">
+                        <div class="comments__comment"><span class="comments__link">@Bazilinga</span> is a great platform for my learning!<br>
+                            It was simple and I learned the process in my own pace.<br>
+                            I would recommended to a friend!
+                        </div>
+                    </li>
+                    <li class="comments__slide orbit-slide">
+                        <div class="comments__comment"><span class="comments__link">@Bazilinga</span> is a great platform for my learning!<br>
+                            It was simple and I learned the process in my own pace.<br>
+                            I would recommended to a friend!
+                        </div>
+                    </li>
+                </ul>
+                <nav class="comments__bullets orbit-bullets">
+                    <button class="is-active" data-slide="0"></button>
+                    <button data-slide="1"></button>
+                    <button data-slide="2"></button>
+                    <button data-slide="3"></button>
+                </nav>
+            </div>
+        </div>
+    
+    </div>
+</main>
+
+<!--====================================================================-->
+<!---------- FOOTER ------------------------------------------------------>
+<footer class="footer">
+    <div class="footer__wrap">
+        
+        <div class="links-container">
+            <div class="linkslist">
+                <div class="linkslist__col">
+                    <h1 class="linkslist_h">Bazilinga</h1>
+                    <a class="linkslist_link" href="#">About Us</a>
+                    <a class="linkslist_link" href="#">Contact Us</a>
+                    <a class="linkslist_link" href="#">Team</a>
+                    <a class="linkslist_link" href="#">Jobs</a>
+                    <a class="linkslist_link" href="#">Labs</a>
+                    <a class="linkslist_link" href="#">Terms of Use</a>
+                    <a class="linkslist_link" href="#">Privacy Policy</a>
+                </div>
+                <div class="linkslist__col">
+                    <h1 class="linkslist_h">Browse courses</h1>
+                    <a class="linkslist_link" href="#">Languages</a>
+                    <a class="linkslist_link" href="#">Trivia</a>
+                    <a class="linkslist_link" href="#">Learning Spanish</a>
+                    <br>
+                    <h1 class="linkslist_h">Help</h1>
+                    <a class="linkslist_link" href="#">FAQ & Help</a>
+                </div>
+                <div class="linkslist__col">
+                    <h1 class="linkslist_h">More</h1>
+                    <a class="linkslist_link" href="#">Blog</a>
+                    <a class="linkslist_link" href="#">Forums</a>
+                    <a class="linkslist_link" href="#">Teachers</a>
+                    <a class="linkslist_link" href="#">Members</a>
+                </div>
+            </div>
+            <div class="links-imgs">
+            <div class="links-imgs__logo">
+                <a href="#">
+                    <img src="img/bazilinga-logo.png" alt="">
+                </a>
+            </div>
+            <div class="links-imgs__social">
+                <a class="links-imgs__social-a" href="#">
+                    <img src="img/facebook-logo.png" alt="">
+                </a>
+                <a class="links-imgs__social-a" href="#">
+                    <img src="img/twitter-logo.png" alt="">
+                </a>
+            </div>
+        </div>
+        </div>
+        
+        <div class="footer__copyright">&copy; 2016 Bazilinga</div>
+    </div>
+</footer>
+
+<!--====================================================================-->
+<!---------- SCRIPTS ----------------------------------------------------->
+<!-- jQuery CDN (must be loaded BEFORE foundation scripts) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="dist/plugins/foundation.core.js"></script>
+<script src="dist/plugins/foundation.orbit.js"></script>
+<script src="dist/plugins/foundation.util.mediaQuery.js"></script>
+<script src="dist/plugins/foundation.util.keyboard.js"></script>
+<script src="dist/plugins/foundation.util.motion.js"></script>
+<script src="dist/plugins/foundation.util.timerAndImageLoader.js"></script>
+<script src="dist/plugins/foundation.util.touch.js"></script>
+<!-- lodash CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<!-- Angular JS CDN -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+<script src="app/test-app.start.js"></script>
+
+<script>
+    $(document).foundation();
+</script>
+
+</body>
+</html>
+

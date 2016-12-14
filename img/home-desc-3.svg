@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" viewBox="115 74 538 539" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_46">
+    <path d="M115 343c0,149 120,269 268,269l0 0c149,0 269,-120 269,-269l0 0c0,-148 -120,-268 -269,-268l0 0c-148,0 -268,120 -268,268l0 0z" style="fill: rgb(150, 223, 215); fill-rule: nonzero;"/>
+    <path d="M364 354c0,-12 10,-21 21,-21 12,0 21,9 21,21 0,11 -9,20 -21,20 -11,0 -21,-9 -21,-20z" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.4941; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M344 269c10,-39 27,-61 47,-61 31,0 57,65 57,146 0,80 -26,145 -57,145 -28,0 -51,-50 -56,-117" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.4941; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M340 427c-39,13 -70,13 -80,-2 -17,-23 27,-77 96,-119 69,-42 139,-57 155,-33 14,21 -8,56 -63,95" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.4941; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M385 290c-59,-29 -112,-37 -125,-17 -17,24 27,78 96,120 69,42 139,56 155,32 11,-16 -5,-45 -38,-75" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.4941; stroke-linecap: round; stroke-linejoin: round;"/>
+  </g>
+</svg>

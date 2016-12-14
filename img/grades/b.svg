@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="300px" height="500px" viewBox="125 43 250 414" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <rect x="125" y="43" width="250" height="414" style="fill: rgb(190, 209, 119);"/>
+    <g id="_1952508527248">
+      <path d="M 205 384 L 209 390 L 217 392 L 212 398 L 212 406 L 205 403 L 197 406 L 198 398 L 193 392 L 201 390 Z" style="fill: white;"/>
+      <path d="M 235 384 L 239 390 L 247 392 L 242 398 L 242 406 L 235 403 L 228 406 L 228 398 L 223 392 L 231 390 Z" style="fill: white;"/>
+      <path d="M 265 384 L 269 390 L 277 392 L 272 398 L 272 406 L 265 403 L 258 406 L 258 398 L 253 392 L 261 390 Z" style="fill: white;"/>
+      <path d="M 295 384 L 299 390 L 307 392 L 302 398 L 303 406 L 295 403 L 288 406 L 288 398 L 283 392 L 291 390 Z" style="fill: white;"/>
+    </g>
+    <path d="M278 247c8,3 15,7 21,13 5,6 7,13 7,22 0,13 -4,22 -12,30 -9,7 -22,10 -41,10l-50 0c-3,0 -5,0 -7,-2 -2,-2 -2,-4 -2,-7l0 -126c0,-3 0,-5 2,-7 2,-2 4,-2 7,-2l49 0c15,0 26,3 34,10 8,6 12,16 12,27 0,8 -2,15 -5,20 -4,5 -9,9 -15,12zm2 -30c0,-7 -2,-12 -8,-16 -5,-4 -12,-6 -22,-6l-38 0 0 45 35 0c12,0 21,-2 26,-6 5,-4 7,-10 7,-17zm-29 88c14,0 23,-2 29,-6 5,-5 8,-10 8,-18 0,-16 -12,-24 -37,-24l-39 0 0 48 39 0z" style="fill: white; fill-rule: nonzero;"/>
+  </g>
+</svg>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="500px" height="500px" viewBox="132 132 236 236" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <ellipse cx="250" cy="250" rx="117" ry="117" style="fill: white;"/>
+    <path d="M306 296l-10 10c-2,3 -7,3 -9,0l-32 -32c-3,-3 -6,-3 -10,0l-32 32c-2,3 -7,3 -9,0l-10 -10c-3,-2 -3,-7 0,-9l32 -32c3,-3 3,-7 0,-10l-32 -32c-3,-2 -3,-7 0,-9l10 -10c2,-3 6,-3 9,0 11,9 22,22 33,32 2,3 6,3 9,0l32 -32c1,-1 2,-2 3,-2 2,0 5,0 6,2l10 10c1,0 1,1 2,2 1,3 0,6 -2,7l-32 32c-3,3 -3,7 0,10l32 32c3,2 3,7 0,9z" style="fill: rgb(195, 92, 81);"/>
+  </g>
+</svg>

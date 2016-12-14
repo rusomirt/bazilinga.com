@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" viewBox="981 1491 541 540" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <path d="M983 1762c0,148 120,269 268,269l0 0c149,0 269,-121 269,-269l0 0c0,-149 -120,-269 -269,-269l0 0c-148,0 -268,120 -268,269l0 0z" style="fill: rgb(150, 223, 215); fill-rule: nonzero;"/>
+    <path d="M 1102 1638 L 1102 1908" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.498; stroke-linecap: round;"/>
+    <path d="M 1102 1888 L 1409 1888" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.498; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M1129 1855c0,0 64,-72 99,-99 17,-13 38,-28 60,-39 17,-9 35,-17 50,-27 38,-26 53,-43 53,-43" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.498; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M 1348 1642 L 1400 1636 L 1398 1685" style="fill: none; fill-rule: nonzero; stroke: white; stroke-width: 12.498; stroke-linecap: round; stroke-linejoin: round;"/>
+    <path d="M1122 1849c0,7 6,13 13,13l0 0c8,0 14,-6 14,-13l0 0c0,-8 -6,-14 -14,-14l0 0c-7,0 -13,6 -13,14l0 0z" style="fill: rgb(150, 223, 215); fill-rule: nonzero;"/>
+    <path d="M1222 1749c0,7 6,13 13,13l0 0c8,0 14,-6 14,-13l0 0c0,-8 -6,-14 -14,-14l0 0c-7,0 -13,6 -13,14l0 0z" style="fill: rgb(150, 223, 215); fill-rule: nonzero;"/>
+    <path d="M1326 1690c0,8 6,14 13,14l0 0c8,0 14,-6 14,-14l0 0c0,-7 -6,-13 -14,-13l0 0c-7,0 -13,6 -13,13l0 0z" style="fill: rgb(150, 223, 215); fill-rule: nonzero;"/>
+    <ellipse cx="1339" cy="1690" rx="14" ry="14" style="fill: none; stroke: white; stroke-width: 12.4933;"/>
+    <ellipse cx="1235" cy="1749" rx="14" ry="14" style="fill: none; stroke: white; stroke-width: 12.4933;"/>
+    <ellipse cx="1135" cy="1849" rx="14" ry="14" style="fill: none; stroke: white; stroke-width: 12.4933;"/>
+  </g>
+</svg>

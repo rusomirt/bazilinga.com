@@ -1,0 +1,1895 @@
+//=============================================================================
+//---------- FILES CONNECTIONS ------------------------------------------------
+@import 'foundation';
+
+//=============================================================================
+//---------- FONTS ------------------------------------------------------------
+@font-face{
+    font-family: "Gotham Rounded Bold";
+    src: url("../fonts/GothamRoundedBold.woff2"),
+         url("../fonts/GothamRoundedBold.woff");
+}
+@font-face{
+    font-family:"Gotham Rounded Medium";
+    src: url("../fonts/GothamRoundedMedium.woff2"),
+         url("../fonts/GothamRoundedMedium.woff");
+}
+@font-face{
+    font-family:"Gotham Rounded Light";
+    src: url("../fonts/GothamRoundedLight.woff2"),
+         url("../fonts/GothamRoundedLight.woff");
+}
+
+body {
+    font-family: "Gotham Rounded Medium", sans-serif;
+    font-size: $basic-font-size-small;
+    @include breakpoint(medium) {
+        font-size: $basic-font-size-medium;
+    }
+    @include breakpoint(large) {
+        font-size: $basic-font-size-large;
+    }
+}
+* {
+    margin: 0;
+    outline: none;
+}
+
+//=============================================================================
+//---------- MIXINS -----------------------------------------------------------
+// Square button border
+@mixin button-border {
+    border: solid $border-width-small $border-color;
+    @include breakpoint(medium) {
+        border: solid $border-width-medium $border-color;
+    }
+}
+
+// Round button border
+@mixin button-border-round {
+    @include button-border;
+    border-radius: 50%;
+}
+
+// Background with color filling and centered image
+@mixin bg-img($color: transparent, $img: none) {
+    background-color: $color;
+    background-image: $img;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+}
+
+// "Play" icon with round progress bar
+@mixin play($locked: false, $deg: 45, $play-rating-filled-color: #FF5702) {
+    font-size: $play-font-size-small;
+    @include breakpoint(xlarge) {
+        font-size: $play-font-size-xlarge;
+    }
+    position: relative;
+    width: $play-size;
+    height: $play-size;
+    
+    @if $locked {
+        @include bg-img($color: transparent, $img: $icon-lock);
+    } @else {
+        background-color: $play-rating-empty-color;
+        border-radius: $play-size*0.5;
+        .play__indicator {
+            width: $play-size;
+            height: $play-size;
+            overflow: hidden;
+            background-color: $play-rating-empty-color;
+            border-radius: $play-size*0.5;
+        }
+        .play__indicator:before {
+            width: $play-size * 0.5;
+            height: $play-size;
+            border-radius: $play-size*0.5 0 0 $play-size*0.5;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 100% 50%;
+            background-color: $play-rating-filled-color;
+            transform: rotate(#{$deg}deg);
+        }
+        .play__indicator:after {
+            width: $play-size*0.5;
+            height: $play-size;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 0 $play-size*0.5 $play-size*0.5 0;
+            transform-origin: 0 50%;
+            @if $deg<180 { // Unfilled left semicurcle.
+                background-color: $play-rating-empty-color;
+                transform: rotate(180deg);
+                top: -1px; // For full covering of ':before'.
+                width: $play-size*0.51; // For full covering of ':before'.
+            } @else { // Filled right semicurcle.
+                background-color: $play-rating-filled-color;
+                transform: rotate(0deg);
+            }
+        }
+        .play__inner {
+            position: absolute;
+            width: $play-inner-size;
+            height: $play-inner-size;
+            top: $play-inner-offset;
+            left: $play-inner-offset;
+            background-color: $play-rating-filled-color;
+            border: $play-inner-bwidth solid white;
+            border-radius: $play-inner-size*0.5;
+            z-index: 2;
+        }
+        .play__inner:before { // White triangle of "play".
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            // Triangle display
+            border: $play-inner-size*0.25 solid transparent;
+            border-left: $play-inner-size*0.40 solid white;
+            border-right-width: 0;
+            // Triangle centering
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-left: $play-size*0.05;
+        }
+    }
+}
+
+// Flexbox container (cross-browser from https://autoprefixer.github.io/)
+// Didn't use Foundation mixins due to browser prefixes.
+@mixin flex-container(
+    $flex-direction: row,           // Main-axis (direction of placing flex items in the flex container).
+    $flex-wrap: nowrap,             // Allow (or not) the items to wrap as needed
+    $justify-content: flex-start,   // Alignment along the main-axis.
+    $align-items: stretch           // Alignment along the cross-axis (perpendicular to the main-axis).
+) {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    -webkit-box-orient: if( ($flex-direction == 'row') or ($flex-direction == 'row-reverse'), horizontal, vertical);
+    -webkit-box-direction: if( ($flex-direction == 'row') or ($flex-direction == 'column'), normal, reverse);
+    -ms-flex-direction: $flex-direction;
+    flex-direction: $flex-direction;
+    
+    -ms-flex-wrap: $flex-wrap;
+    flex-wrap: $flex-wrap;
+    
+    @if ($justify-content == 'flex-start') {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+    } @else if ($justify-content == 'flex-end') {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+    } @else if ($justify-content == 'center') {
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+    } @else if ($justify-content == 'space-between') {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+    } @else if ($justify-content == 'space-around') {
+        -ms-flex-pack: distribute;
+    }
+    justify-content: $justify-content;
+    
+    @if ($align-items == 'flex-start') {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+    } @else if ($align-items == 'flex-end') {
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+    } @else {
+        -webkit-box-align: $align-items;
+        -ms-flex-align: $align-items;
+    }
+    -ms-grid-row-align: $align-items;
+    align-items: $align-items;
+}
+
+// Flexbox item order (cross-browser)
+// Didn't use Foundation mixins due to browser prefixes.
+@mixin flex-item-order($order) {
+    -webkit-box-ordinal-group: $order;
+    -moz-box-ordinal-group: $order;
+    -ms-flex-order: $order;
+    -webkit-order: $order;
+    order: $order;
+}
+
+// Flexbox item: allow shrinking
+@mixin flex-item-shrink() {
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+}
+// Flexbox item: prevent shrinking
+@mixin flex-item-no-shrink() {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+
+//=============================================================================
+//---------- HEADER -----------------------------------------------------------
+.header {
+    background-color: $common-bg-color;
+    font-size: $header-font-size;
+    .header__wrap {
+        margin: 0 auto;
+        max-width: $max-content-width;
+        padding: $global-indent 0 0 0;
+    }
+}
+
+//=============================================================================
+//---------- TOP BAR ----------------------------------------------------------
+.topbar--break-xl-wide {
+    @include flex-container(
+            $flex-direction: column,
+            $justify-content: flex-start,
+            $align-items: stretch
+    );
+    @include breakpoint(xlarge) {
+        @include flex-container(
+                $flex-direction: row,
+                $justify-content: space-between,
+                $align-items: center
+        );
+    }
+}
+.topbar--break-m-center {
+    @include flex-container(
+            $flex-direction: column,
+            $justify-content: flex-start,
+            $align-items: center
+    );
+    @include breakpoint(medium) {
+        @include flex-container(
+                $flex-direction: row,
+                $justify-content: space-between,
+                $align-items: center
+        );
+    }
+}
+.topbar {
+    
+    .topbar__left {
+        flex: 1 1 auto;
+        -ms-flex: 1 1 auto;
+        @include flex-container(
+                $flex-direction: row,
+                $justify-content: space-between,
+                $align-items: center
+        );
+    }
+    
+    .topbar__right {
+        @include flex-item-no-shrink;
+        @include flex-container(
+                $flex-direction: row,
+                $justify-content: space-between,
+                $align-items: center
+        );
+    }
+    
+    .topbar__btns-container {
+        padding: $global-indent;
+        @include flex-container();
+    }
+    .topbar__button {
+        padding: 0;
+        border: none;
+        height: $icons-size;
+        width: $icons-size;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+        &:not(:first-of-type) {
+            margin-left: $btn-margin;
+        }
+    }
+    .topbar__button--dropdown {
+        @include button-dropdown($color: $border-color);
+        margin-bottom: 0;
+        width: auto;
+        height: $icons-size;
+        font-size: inherit;
+        padding: $btn-padding;
+        padding-right: $select-padding-small;
+        @include breakpoint(large) {
+            padding-right: $select-padding-large;
+        }
+        color: $border-color;
+        option {
+            background-color: $common-bg-color
+        }
+    }
+    .topbar__button--border {
+        @include button-border;
+    }
+    
+    .topbar__enter-btn {
+        font-size: $enter-btn-font-size;
+        margin-left: $global-indent;
+        @include breakpoint(large) {
+            margin-left: $global-indent * 4;
+        }
+        padding: $enter-btn-font-size;
+        border: none;
+        border-radius: $enter-btn-border-radius;
+        height: $icons-size;
+        &:hover {
+            color: white;
+            background-color: $enter-btn-hover-color;
+        }
+    }
+    
+    .topbar__logo {
+        width: $logo-width;
+        height: $logo-height;
+    }
+}
+
+//=============================================================================
+//---------- MAIN CONTENT -----------------------------------------------------
+.content {
+    background-color: $common-bg-color;
+    .content__wrap {
+        margin: 0 auto;
+        max-width: $max-content-width;
+        padding: $global-indent 0;
+        .content__header {
+            text-align: center;
+            font-family: "Gotham Rounded Bold", sans-serif;
+            font-size: $content-header-font-size;
+            color: $border-color;
+            padding: 0 $global-indent;
+            margin: $global-indent*2 0 0 0;
+        }
+        .content__text {
+            text-align: center;
+            font-family: "Gotham Rounded Light", sans-serif;
+            font-size: $content-text-font-size;
+            padding: 0 $global-indent;
+            max-width: $content-text-max-width;
+            margin: $global-indent*3 auto $global-indent*4 auto;
+        }
+    }
+}
+
+//=============================================================================
+//---------- HEADER-HOME (MAIN PAGE ONLY) -------------------------------------
+.header-home {
+    background-color: white;
+    font-size: $header-font-size;
+    
+    .header-home__wrap {
+        margin: 0 auto;
+        max-width: $max-content-width;
+        @include bg-img($color: transparent, $img: $worldmap);
+        padding: $global-indent*2 $global-indent;
+        
+        // Show big background map with speeches when screen >= 800px:
+        @include breakpoint(xlarge) {
+            height: $worldmap-height;
+            @include bg-img($color: transparent, $img: $worldmap-with-speech);
+        }
+    }
+}
+
+.header-login {
+    @extend .header-home;
+    .header-home__wrap {
+        @include bg-img($color: transparent, $img: $worldmap);
+    }
+}
+
+//=============================================================================
+//---------- SITE MOTTO (MAIN PAGE ONLY) --------------------------------------
+.site-motto {
+    margin: $global-indent*2 0 0 0;
+    text-align: center;
+    .site-motto__primary {
+        font-family: "Gotham Rounded Bold", sans-serif;
+        font-size: $site-motto-font-size;
+        line-height: 1.2em;
+        margin-bottom: 0.2em;
+    }
+    .site-motto__secondary {
+        font-family: "Gotham Rounded Light", sans-serif;
+        font-size: $site-motto-font-size/2;
+        margin-bottom: 0;
+    }
+}
+
+//=============================================================================
+//---------- BUTTONS FOR ENTER TO SITE (MAIN PAGE ONLY) -----------------------
+.enter-btns {
+    width: $enter-btns-width;
+    margin: 0 auto;
+    margin-top: $global-indent*2;
+    @include breakpoint(large) {
+        margin-top: $global-indent*4;
+    }
+    .enter-btns__btn {
+        width: 100%;
+        display: block;
+        margin: $global-indent 0;
+        padding: 0.8em;
+        color: white;
+        font-family: "Gotham Rounded Medium", sans-serif;
+        font-size: $enter-btn-font-size;
+        border-radius: $enter-btn-border-radius;
+    }
+    .enter-btns__btn--signup {
+        background-color: $enter-btns-signup-bg;
+    }
+    .enter-btns__btn--tryfb {
+        background-color: $enter-btns-tryfb-bg;
+        padding-left: 2.6em;
+        position: relative;
+        &:before {
+            display: block;
+            content: 'f';
+            position: absolute;
+            left: 0.6em;
+            top: 0.5em;
+            color: $enter-btns-tryfb-bg;
+            font-family: "Gotham Rounded Medium", sans-serif;
+            line-height: 1.5em;
+            border-radius: 0.3em;
+            width: 1.5em;
+            height: 1.5em;
+            background-color: white;
+        }
+    }
+}
+
+//=============================================================================
+//---------- DESCRIPTION (MAIN PAGE ONLY) -------------------------------------
+.desc {
+    text-align: center;
+    background-color: white;
+    margin: 0;
+    padding: $global-indent*2 0;
+    .desc__header {
+        font-family: "Gotham Rounded Bold", sans-serif;
+        font-size: $desc-header-font-size;
+        color: black;
+        margin-bottom: $global-indent;
+    }
+    .desc__blocks {
+        @include flex-container($flex-direction: column);
+        @include breakpoint(large) {
+            @include flex-container($flex-direction: row);
+        }
+        .desc__block {
+            font-size: $desc-block-cont-size;
+            padding: $global-indent*2;
+            width: 100%;
+            @include flex-container(
+                    $flex-direction: row,
+                    $align-items: center
+            );
+            @include breakpoint(large) {
+                width: 33.3%;
+                @include flex-container(
+                        $flex-direction: column,
+                        $align-items: center
+                );
+            }
+            .desc__block-img {
+                margin-right: $global-indent*2;
+                width: $desc-block-img-size-small;
+                height: $desc-block-img-size-small;
+                @include breakpoint(large) {
+                    margin: 0;
+                    margin-bottom: $global-indent*2;
+                    width: $desc-block-img-size-large;
+                    height: $desc-block-img-size-large;
+                }
+            }
+            .desc__block-img--1 {
+                @include bg-img($color: transparent, $img: $desc-block-img-1);
+            }
+            .desc__block-img--2 {
+                @include bg-img($color: transparent, $img: $desc-block-img-2);
+            }
+            .desc__block-img--3 {
+                @include bg-img($color: transparent, $img: $desc-block-img-3);
+            }
+            .desc__block-txt {
+                width: 100%;    // For properly fitting flexbox thems in IE.
+            }
+        }
+    }
+}
+
+//=============================================================================
+//---------- COMMENTS (MAIN PAGE ONLY) ----------------------------------------
+.comments {
+    text-align: center;
+    
+    .comments__header {
+        font-family: "Gotham Rounded Bold", sans-serif;
+        font-size: $comments-header-font-size;
+        color: $border-color;
+        margin: $global-indent*2 0;
+    }
+    
+    .comments__comment {
+        font-family: "Gotham Rounded Light", sans-serif;
+        font-size: $comment-font-size;
+        width: 90%;
+        max-width: $comment-max-width;
+        background-color: white;
+        border: 1px solid $border-color;
+        padding: $global-indent*2;
+        margin: 0 auto $global-indent*4 auto;
+        position: relative;
+        &:before {// Bottom triangle of comment - border.
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            // Triangle display
+            border: 1em solid transparent;
+            border-top: 1.5em solid $border-color;
+            border-bottom-width: 0;
+            // Triangle centering
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        &:after {// Bottom triangle of comment - main part.
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            // Triangle display
+            border: 1em solid transparent;
+            border-top: 1.5em solid white;
+            border-bottom-width: 0;
+            // Triangle centering
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translate(-50%, -2px );
+        }
+        .comments__link {
+            color: $primary-color;
+        }
+    }
+    
+    .comments__carousel {
+        @include orbit-wrapper;
+        .comments__slides-container {
+            @include orbit-container;
+            .comments__slide {
+                @include orbit-slide;
+                padding-bottom: $global-indent;
+            }
+        }
+        .comments__bullets {
+            @include orbit-bullets;
+            margin-top: -$global-indent;  // Prevent overlapping of comment triangle tip.
+        }
+    }
+}
+
+//=============================================================================
+//---------- FOOTER (MAIN PAGE ONLY) ------------------------------------------
+.footer {
+    background-color: white;
+    
+    .footer__wrap {
+        margin: 0 auto;
+        max-width: $max-content-width;
+        padding: $global-indent*3;
+        
+        .footer__copyright {
+            font-family: "Gotham Rounded Bold", sans-serif;
+            font-size: $copyright-font-size;
+            text-align: center;
+        }
+    }
+}
+
+//=============================================================================
+//---------- LINKS IN FOOTER (MAIN PAGE ONLY) ---------------------------------
+.links-container {
+    @include flex-container($flex-direction: column);
+    @include breakpoint(large) {
+        @include flex-container($justify-content: space-between);
+    }
+    .linkslist {
+        @include flex-container($justify-content: space-around);
+        min-width: 60%;
+        margin-bottom: $global-indent*2;
+        
+        .linkslist__col {
+            @include flex-item-no-shrink;
+            margin: 0 $global-indent*4;
+            .linkslist_h {
+                font-size: $links-h-font-size;
+                font-family: "Gotham Rounded Bold", sans-serif;
+                margin-bottom: $global-indent*2;
+            }
+            .linkslist_link {
+                font-family: "Gotham Rounded Light", sans-serif;
+                font-size: $links-font-size;
+                color: black;
+                display: block;
+                margin-bottom: $global-indent;
+            }
+        }
+    }
+    .links-imgs {
+        @include flex-container($flex-direction: row, $justify-content: space-around, $align-items: center);
+        @include breakpoint(large) {
+            @include flex-container($flex-direction: column, $align-items: center);
+        }
+        
+        .links-imgs__logo {
+            @include flex-item-no-shrink;
+            margin: 0 $global-indent*4;
+            width: $links-logo-width;
+            height: $links-logo-height;
+        }
+        .links-imgs__social {
+            @include flex-item-no-shrink;
+            
+            @include flex-container();
+            margin: 0 $global-indent*4;
+            
+            .links-imgs__social-a {
+                height: $icons-size;
+                width: $icons-size;
+                margin: $global-indent;
+            }
+        }
+    }
+}
+
+
+//=============================================================================
+//---------- NAVIGATION (UNIT LIST PAGE ONLY) ---------------------------------
+.nav {
+    background-color: white;
+    
+    .nav__wrap {
+        margin: 0 auto;
+        max-width: $max-content-width;
+        padding: $nav-padding;
+        
+        .nav__level {
+            display: inline-block;
+            .nav__button {
+                width: auto !important;
+                margin: 0 !important;
+                padding-right: $select-padding-small;
+                @include breakpoint(large) {
+                    padding-right: $select-padding-large;
+                }
+            }
+        }
+
+        .nav__button {
+            font-size: $nav-font-size-small;
+            @include breakpoint(large) {
+                font-size: $nav-font-size-large;
+            }
+            @include button-border;
+            padding: $btn-padding;
+            background-color: $common-bg-color;
+            color: $border-color;
+            width: $icons-size !important;
+            height: $icons-size !important;
+            // Cropped margin - to compensate spaces between <li> items
+            margin-left: $btn-margin-cropped;
+        }
+
+        .nav__pagination {
+            height: $icons-size;
+            margin: 0;
+            background-color: transparent;
+            display: inline-block;
+            float: right;
+
+            .nav__pagination-li {
+                @include button-border;
+
+                background-color: $nav-buttons-bg-color;
+                position: relative; // For centering .nav__a
+                display: inline-block;
+
+                .nav__a {
+                    @include absolute-center;
+                    color: $border-color;
+                    display: block;
+                    width: 100% !important;
+                    text-align: center;
+                    &:hover {
+                        background: none;
+                    }
+                }
+            }
+            .nav__pagination-li--prev, .nav__pagination-li--next {
+                .nav__a {
+                    height: 100% !important;
+                    width: 100% !important;
+                }
+            }
+            .nav__pagination-li--prev {
+                .nav__a:before {
+                    @include css-triangle(
+                            $triangle-size: $nav-triange-size,
+                            $triangle-color: $border-color,
+                            $triangle-direction: left
+                    );
+                    @include absolute-center;
+                    content: ' ';
+                }
+            }
+            .nav__pagination-li--next {
+                .nav__a:after {
+                    @include css-triangle(
+                            $triangle-size: $nav-triange-size,
+                            $triangle-color: $border-color,
+                            $triangle-direction: right
+                    );
+                    @include absolute-center;
+                    content: ' ';
+                }
+            }
+            .nav__pagination-li--current {
+                background-color: $nav-buttons-current-color;
+            }
+        }
+    }
+}
+
+//=============================================================================
+//---------- UNIT (UNIT LIST PAGE ONLY) ----------------------------------------
+.unit {
+    background-color: $unit-bg;
+    position: relative;
+    
+    .unit__type {
+        display: inline-block;
+        @include show-for(xlarge);
+        height: 100%;
+        position: absolute;
+        left: 0;
+        @include breakpoint(xlarge) {
+            width: $unit-type-width;
+        }
+    }
+    .unit__desc {
+        display: inline-block;
+        min-height: $unit-min-height;
+        position: relative;
+        width: $unit-desc-width-small;
+        @include breakpoint(xlarge) {
+            margin-left: $unit-type-width;
+            width: $unit-desc-width-xlarge;
+        }
+        padding: $global-indent/2 $global-indent;
+        @include breakpoint(xlarge) {
+            padding: $global-indent;
+        }
+        .unit__h1 {
+            font-family: "Gotham Rounded Bold", sans-serif;
+            font-size: $h1-font-size;
+        }
+        .unit__p {
+            font-family: "Gotham Rounded Light", sans-serif;
+            margin-bottom: 0;
+        }
+    }
+    .unit__knowledge {
+        display: inline-block;
+        @include show-for(xlarge);
+        height: 100%;
+        position: absolute;
+        @include breakpoint(xlarge) {
+            left: $unit-type-width + $unit-desc-width-xlarge;
+            width: $unit-knowledge-width;
+        }
+        //position: relative;                         // For centering .unit__col-container.
+        .unit__col-container {
+            margin-top: $unit-col-container-down;   // Shift slightly down from the center.
+        }
+    }
+    .unit__credits {
+        display: inline-block;
+        @include show-for(xlarge);
+        height: 100%;
+        position: absolute;
+        @include breakpoint(xlarge) {
+            left: $unit-type-width + $unit-desc-width-xlarge + $unit-knowledge-width;
+            width: $unit-credits-width;
+        }
+        //position: relative;                         // For centering .unit__col-container.
+        .unit__col-container {
+            margin-top: $unit-col-container-down;   // Shift slightly down from the center.
+        }
+    }
+    .unit__questions {
+        display: inline-block;
+        @include show-for(xlarge);
+        height: 100%;
+        position: absolute;
+        @include breakpoint(xlarge) {
+            left: $unit-type-width + $unit-desc-width-xlarge + $unit-knowledge-width + $unit-credits-width;
+            width: $unit-questions-width;
+        }
+        //position: relative;                         // For centering .unit__col-container.
+        .unit__col-container {
+            margin-top: $unit-col-container-down;   // Shift slightly down from the center.
+        }
+    }
+    .unit__grade-letter {
+        display: inline-block;
+        height: 100%;
+        position: absolute;
+        left: $unit-desc-width-small;
+        width: $unit-grade-letter-width-small;
+        @include breakpoint(xlarge) {
+            left: $unit-type-width + $unit-desc-width-xlarge +
+                            $unit-knowledge-width + $unit-credits-width + $unit-questions-width;
+            width: $unit-grade-letter-width-xlarge;
+        }
+    }
+    .unit__grade-rating {
+        display: inline-block;
+        height: 100%;
+        position: absolute;
+        left: $unit-desc-width-small + $unit-grade-letter-width-small;
+        width: $unit-grade-rating-width-small;
+        @include breakpoint(xlarge) {
+            left: $unit-type-width + $unit-desc-width-xlarge + $unit-knowledge-width +
+                            $unit-credits-width + $unit-questions-width + $unit-grade-letter-width-xlarge;
+            width: $unit-grade-rating-width-xlarge;
+        }
+        //position: relative;                         // For centering .unit__col-container.
+    }
+    
+    .unit__col-container {
+        @include absolute-center;
+        width: $unit-grade-icon-height-small;
+        @include breakpoint(xlarge) {
+            width: $unit-grade-icon-height-xlarge;
+        }
+        text-align: center;
+        
+        .unit__knowledge-icon, .unit__credits-icon, .unit__questions-icon {
+            height: $unit-studying-icon-height;
+        }
+        .unit__colvalue {
+            font-family: "Gotham Rounded Medium", sans-serif;
+            margin-top: $colvalue-margin-top;
+            margin-bottom: $colvalue-margin-bottom;
+        }
+        .unit__progress {
+            @include progress-container;
+            height: $progress-height;
+        }
+        .unit__progress-meter {
+            @include progress-meter;
+            background-color: $border-color;
+        }
+    }
+    &:not(:first-of-type) {
+        margin-top: $global-indent;
+    }
+}
+
+// Unit type images in 1st column
+.unit--type-base {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-base-source);
+    }
+}
+.unit--type-chal {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-challenge);
+    }
+}
+.unit--type-superchal {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-super-challenge);
+    }
+}
+.unit--type-gram {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-grammar);
+    }
+}
+.unit--type-opt {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-optional);
+    }
+}
+.unit--type-repeat {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-repeat);
+    }
+}
+.unit--type-autogen {
+    .unit__type {
+        @include bg-img($color: $unit-type-bg, $img: $icon-automatically-generated);
+    }
+}
+
+// Non-locked units
+.unit:not(.unit--locked) {
+    .unit__knowledge-icon {
+        @include bg-img($color: transparent, $img: $icon-light-fullwidth);
+    }
+    .unit__credits-icon {
+        @include bg-img($color: transparent, $img: $icon-coins-fullwidth);
+    }
+    .unit__questions-icon {
+        @include bg-img($color: transparent, $img: $icon-question-bordered);
+    }
+}
+
+// In locked units icons obtain disabled appearance
+.unit--locked {
+    .unit__knowledge-icon {
+        @include bg-img($color: transparent, $img: $icon-light-locked);
+    }
+    .unit__credits-icon {
+        @include bg-img($color: transparent, $img: $icon-coins-locked);
+    }
+    .unit__questions-icon {
+        @include bg-img($color: transparent, $img: $icon-question-locked);
+    }
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-locked, $img: none);
+    }
+    .play {
+        @include play($locked: true, $deg: $play-progress-f, $play-rating-filled-color: $play-rating-full-color-default);
+    }
+}
+
+.unit--grade-f {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-f, $img: $icon-letter-f);
+    }
+    .play {
+        @include play($deg: $play-progress-f, $play-rating-filled-color: $play-rating-full-color-default);
+    }
+}
+.unit--grade-d {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-d, $img: $icon-letter-d);
+    }
+    .play {
+        @include play($deg: $play-progress-d, $play-rating-filled-color: $play-rating-full-color-default);
+    }
+}
+.unit--grade-c {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-c, $img: $icon-letter-c);
+    }
+    .play {
+        @include play($deg: $play-progress-c, $play-rating-filled-color: $play-rating-full-color-default);
+    }
+}
+.unit--grade-b {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-b, $img: $icon-letter-b);
+    }
+    .play {
+        @include play($deg: $play-progress-b, $play-rating-filled-color: $play-rating-full-color-ab);
+    }
+}
+.unit--grade-a {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-a, $img: $icon-letter-a);
+    }
+    .play {
+        @include play($deg: $play-progress-a, $play-rating-filled-color: $play-rating-full-color-ab);
+    }
+}
+.unit--grade-s {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-s, $img: $icon-letter-s);
+    }
+    .play {
+        @include play($deg: $play-progress-s, $play-rating-filled-color: $play-rating-full-color-s);
+    }
+}
+.unit--grade-u {
+    .unit__grade-letter {
+        @include bg-img($color: $letter-color-u, $img: $icon-letter-u);
+    }
+    .play {
+        @include play($deg: $play-progress-u, $play-rating-filled-color: $play-rating-full-color-u);
+    }
+}
+
+
+//=============================================================================
+//---------- PROGRESS (TEST PAGE ONLY) ----------------------------------------
+.test-progress {
+    background-color: white;
+    font-size: $progress-font-size-small;
+    @include breakpoint(large) {
+        font-size: $progress-font-size-large;
+    }
+    @include breakpoint(xlarge) {
+        font-size: $progress-font-size-xlarge;
+    }
+    .test-progress__wrap {
+        max-width: $max-content-width;
+        margin: 0 auto;
+        padding: $global-indent*2 $global-indent;
+        .test-progress__flex-container {
+            @include flex-container($flex-direction: column, $justify-content: space-between, $align-items: center);
+            padding-bottom: $global-indent;
+            @include breakpoint(large) {
+                @include flex-container($flex-direction: row, $justify-content: space-between, $align-items: center);
+            }
+            .test-progress__header {
+                margin: 0;
+                font-family: "Gotham Rounded Bold", sans-serif;
+                font-size: $progress-header-font-size;
+            }
+            .test-progress__infos {
+                @include flex-container();
+            }
+        }
+        .test-progress__progress-container {
+            @include progress-container;
+            margin: 0;
+            height: $test-progress-container-height;
+            text-align: center;
+            position: relative;
+            background-color: $light-bg;
+            .test-progress__progress-meter {
+                @include progress-meter;
+                width: 30%;
+            }
+            .test-progress__done {
+                color: $primary-color;
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    }
+}
+
+//=============================================================================
+//---------- HINT (TEST PAGE ONLY) --------------------------------------------
+.hint {
+    // "flex-item-shrink" is added to flexbox items for properly fitting them in IE.
+    // http://codepen.io/noahblon/post/practical-guide-to-flexbox-dont-forget-about-flex-shrink
+    @include flex-container();
+    padding: $global-indent*2 $global-indent;
+    text-align: center;
+    @include breakpoint(large) {
+        padding-left: 0;
+    }
+    
+    .hint__info-btn-container {
+        display: none;
+        @include breakpoint(large) {
+            @include flex-container($align-items: center);
+        }
+        padding: $global-indent*2;
+    }
+    
+    .hint__box {
+        @include flex-container();
+        @include flex-item-shrink;
+        width: 100%;
+        background-color: $light-bg;
+        border: 1px solid $border-color;
+        border-radius: $global-indent;
+        .hint__text {
+            padding: $global-indent $global-indent*2;
+            font-family: "Gotham Rounded Light", sans-serif;
+            color: $border-color;
+            @include flex-item-shrink;
+        }
+        .hint__hint-btn-container {
+            display: none;
+            @include breakpoint(large) {
+                @include flex-container($align-items: center);
+            }
+            padding: $global-indent*2 $global-indent*2 $global-indent*2 0;
+        }
+    }
+}
+
+//=============================================================================
+//---------- TASK (TEST PAGE ONLY) --------------------------------------------
+.task {
+    font-size: $task-font-size-small;
+    @include breakpoint(medium) {
+        font-size: $task-font-size-medium;
+    }
+    @include breakpoint(large) {
+        font-size: $task-font-size-large;
+    }
+    font-family: "Gotham Rounded Bold", sans-serif;
+    text-align: center;
+    background-color: white;
+    padding: $global-indent*3 0 $global-indent*2 0;
+    position: relative;
+    
+    .task__next {
+        width: $task-next-size;
+        height: $task-next-size;
+        position: absolute;
+        top: $global-indent;
+        right: $global-indent;
+        background-color: $border-color;
+        border-radius: $global-indent/2;
+        &:before {
+            content: '';
+            @include css-triangle(
+                    $triangle-size: $task-next-triangle-size,
+                    $triangle-color: white,
+                    $triangle-direction: right
+            );
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-40%, -50%);
+        }
+    }
+    
+    .task__text {
+        margin-bottom: $global-indent;
+    }
+    .task__answer-magnet-item,
+    .task__src-magnet-item,
+    .task__src-multichoice-item {
+        font-family: "Gotham Rounded Medium", sans-serif;
+        font-size: $task-item-font-size;
+        padding: $task-item-font-size;
+        margin: 0;
+    }
+    .task__answer--spell {
+        //padding: $global-indent*2;
+        font-family: "Gotham Rounded Light", sans-serif;
+        color: $border-color;
+        .task__answer-input {
+            color: black;
+            border: 2px solid $border-color;
+            border-radius: 0.3em;
+            padding: 0.2em 0.4em;
+            width: 6em;
+            text-align: center;
+        }
+    }
+    .task__answer--magnet {
+        background-color: $light-bg;
+        padding: $global-indent;
+        .task__answer-magnet-item {
+            background-color: $purple-color;
+            color: white;
+        }
+    }
+    .task__src--spell {
+        margin: $global-indent*3 0 $global-indent*2 0;
+        .task__letter-btn {
+            width: 1.8em;
+            height: 1.8em;
+            @include breakpoint(large) {
+                width: 2em;
+                height: 2em;
+            }
+            .task__letter {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .task__src--magnet {
+        padding: $global-indent*2 0 0 0;
+        .task__src-magnet-item {
+            margin-bottom: $global-indent;
+            background-color: $border-color;
+            color: white;
+            @include button-border;
+        }
+        .task__src-magnet-item--answered {
+            background-color: $light-bg;
+            color: $border-color;
+        }
+    }
+    .task__src--multichoice {
+        @include flex-container($flex-direction: row, $justify-content: center);
+        padding: $global-indent 0 0 0;
+        .task__src-multichoice-col {
+            @include flex-container($flex-direction: column);
+            .task__src-multichoice-item {
+                margin-bottom: $global-indent;
+                background-color: $light-bg;
+                color: $border-color;
+                border: 1px solid $border-color;
+            }
+            .task__src-multichoice-item--answered {
+                background-color: $border-color;
+                color: white;
+            }
+            .task__src-multichoice-item--error {
+                background-color: $purple-color;
+                color: white;
+                border: 1px solid $purple-color;
+            }
+        }
+        .task__src-multichoice-col:not(:first-of-type) {
+            margin-left: $global-indent;
+        }
+    }
+}
+
+//=============================================================================
+//---------- CONTROL (TEST PAGE ONLY) -----------------------------------------
+.ctrl {
+    font-size: $ctrl-font-size-small;
+    @include breakpoint(medium) {
+        font-size: $ctrl-font-size-medium;
+    }
+    @include breakpoint(large) {
+        font-size: $ctrl-font-size-large;
+    }
+    font-family: "Gotham Rounded Medium", sans-serif;
+
+    @include flex-container($flex-wrap: wrap, $justify-content: center, $align-items: center);
+    @include breakpoint(xlarge) {
+        @include flex-container($flex-wrap: wrap, $justify-content: space-between, $align-items: center);
+    }
+    .ctrl__left-container {
+        display: flex;
+        align-items: center;
+        padding: $global-indent*2 $global-indent;
+        @include breakpoint(medium) {
+            padding: $global-indent*2;
+        }
+        @include flex-item-order(2);
+        @include breakpoint(xlarge) {
+            @include flex-item-order(1);
+        }
+    }
+    .ctrl__center-container {
+        @include flex-container($justify-content: center);
+        padding: $global-indent*2 $global-indent;
+        @include breakpoint(medium) {
+            padding: $global-indent*2;
+        }
+        @include flex-item-order(1);
+        width: 100%;
+        @include breakpoint(xlarge) {
+            @include flex-item-order(2);
+            width: auto;
+        }
+    }
+    .ctrl__right-container {
+        @include flex-container($align-items: center);
+        padding: $global-indent*2 $global-indent;
+        @include breakpoint(medium) {
+            padding: $global-indent*2;
+        }
+        @include flex-item-order(3);
+    }
+    .ctrl__incorrect {
+        width: $ctrl-incorrect-width;
+        height: $ctrl-incorrect-height;
+        margin-right: $global-indent*2;
+        position: relative;
+        &:before {
+            content: '';
+            @include bg-img($color: transparent, $img: $cross-img);
+            width: $ctrl-incorrect-height;
+            height: $ctrl-incorrect-height;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        &:after {
+            color: $purple-color;
+            content: 'Incorrect';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: $ctrl-incorrect-height;
+            line-height: $ctrl-incorrect-height;
+        }
+    }
+    .ctrl__correct {
+        width: $ctrl-correct-width;
+        height: $ctrl-correct-height;
+        margin-right: 1em;
+        position: relative;
+        &:before {
+            content: '';
+            @include bg-img($color: transparent, $img: $check-img);
+            width: $ctrl-correct-height;
+            height: $ctrl-correct-height;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        &:after {
+            color: $border-color;
+            content: 'Correct';
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: $ctrl-correct-height;
+            line-height: $ctrl-correct-height;
+        }
+    }
+    
+    .ctrl__chk-btn, .ctrl__chk-btn--double {
+        height: $ctrl-chk-btn-height;
+        background-color: orange;
+        color: white;
+        border-radius: $ctrl-chk-btn-radius;
+        position: relative;
+    }
+    .ctrl__chk-btn {
+        width: $ctrl-chk-btn-width;
+    }
+    .ctrl__chk-btn--double {
+        width: $ctrl-chk-btn-double-width;
+    }
+    .ctrl__chk-btn:before, .ctrl__chk-btn--double:before {
+        content: '4';
+        width: $ctrl-chk-btn-digit-width;
+        height: 100%;
+        line-height: $ctrl-chk-btn-line-height;
+        color: $purple-color;
+        background-color: white;
+        border: 2px solid $purple-color;
+        border-radius: $global-indent 0 0 $global-indent;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .ctrl__chk-btn:after, .ctrl__chk-btn--double:after {
+        content: '4';
+        width: $ctrl-chk-btn-digit-width;
+        height: 100%;
+        line-height: $ctrl-chk-btn-line-height;
+        color: $border-color;
+        background-color: white;
+        border: 2px solid $border-color;
+        border-radius: 0 $global-indent $global-indent 0;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+//=============================================================================
+//---------- INFO (TEST PAGE ONLY) --------------------------------------------
+.info {
+    padding: 0;
+    padding-left: $icons-size*1.2;
+    border: none;
+    height: $icons-size;
+    color: $border-color;
+    line-height: $icons-size;
+    position: relative;
+    &:not(:first-of-type) {
+        margin-left: $btn-margin;
+    }
+    &:before {
+        content: '';
+        width: $icons-size;
+        height: $icons-size;
+        position: absolute;
+        left: 0;
+        @include vertical-center;
+    }
+}
+.info--knowledge {
+    &:before {
+        @include bg-img($color: transparent, $img: $icon-light);
+    }
+}
+.info--credits {
+    &:before {
+        @include bg-img($color: transparent, $img: $icon-coins);
+    }
+}
+.info--time {
+    &:before {
+        @include bg-img($color: transparent, $img: $icon-clock);
+    }
+}
+.info--blacktext {
+    color: black;
+}
+
+//=============================================================================
+//---------- BUTTONS (TEST PAGE ONLY) -----------------------------------------
+.test-button {
+    margin: 0;
+    min-height: $test-button-min-height;
+    padding: 0 $global-indent*2;
+    border-radius: $global-indent;
+    font-family: "Gotham Rounded Light", sans-serif;
+    color: white;
+}
+.test-button--green {
+    background-color: $border-color;
+}
+.test-button--orange {
+    background-color: $enter-btn-hover-color;
+}
+
+//=============================================================================
+//---------- MODAL WINDOW -----------------------------------------------------
+.modal {
+    position: fixed;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    
+    max-height: 100%;
+    
+    
+    .modal__window {
+        position: absolute;
+        width: $modal-width-min;
+        font-size: $modal-font-size-small;
+        @include breakpoint(large) {
+            width: $modal-width-max;
+            font-size: $modal-font-size-large;
+        }
+        border-radius: $modal-bradius;
+        @include absolute-center;
+        background-color: white;
+        font-family: "Gotham Rounded Medium", sans-serif;
+        padding: $global-indent*4 0;
+        height: $modal-window-height;
+        max-height: 100%;
+        overflow: auto;
+        @include flex-container($flex-direction: column, $align-items: center);
+    
+        .modal__h {
+            width: 100%;
+            font-size: $modal-h-font-size;
+            text-align: center;
+            margin-bottom: $global-indent*2;
+            @include flex-item-no-shrink;
+        }
+        .modal__h--info,
+        .modal__h--knowsum {
+            font-size: $modal-h-info-font-size;
+            padding: $global-indent*0.6;
+            color: white;
+            background-color: $border-color;
+            margin-bottom: $global-indent*3;
+        }
+        .modal__p {
+            width: 90%;
+            text-align: center;
+            color: $border-color;
+            background-color: $light-bg;
+            border: 1px solid $border-color;
+            border-radius: $modal-bradius;
+            padding: $global-indent*2;
+            margin-bottom: $global-indent*4;
+        }
+        
+        .modal__measures {
+            @include show-for(large);
+            width: 90%;
+            @include flex-container($justify-content: space-around);
+            margin-bottom: $global-indent*4;
+            .modal__measure {
+                width: $modal-measure-width;
+                position: relative;
+                padding-top: $modal-measure-width * 1.2;
+                text-align: center;
+                &:before {
+                    content: '';
+                    width: $modal-measure-width;
+                    height: $modal-measure-width;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                
+                .modal__progbar-container {
+                    @include progress-container;
+                    margin: $global-indent 0 0 0;
+                    
+                    height: $modal-progress-container-height;
+                    background-color: $light-bg;
+    
+                    .modal__progbar-meter {
+                        @include progress-meter;
+                        background-color: $border-color;
+                        width: 30%;
+                    }
+                }
+            }
+            .modal__measure--questions {
+                &:before {
+                    @include bg-img($color: transparent, $img: $icon-question-bordered);
+                }
+            }
+            .modal__measure--knowledge {
+                &:before {
+                    @include bg-img($color: transparent, $img: $icon-light-bordered);
+                }
+            }
+            .modal__measure--credits {
+                &:before {
+                    @include bg-img($color: transparent, $img: $icon-coins-bordered);
+                }
+            }
+            .modal__measure--credits-doubled {
+                &:before {
+                    @include bg-img($color: transparent, $img: $icon-coins-doubled-bordered);
+                }
+            }
+            .modal__measure--time {
+                &:before {
+                    @include bg-img($color: transparent, $img: $icon-clock-bordered);
+                }
+            }
+        }
+        
+        .modal__radios {
+            margin-bottom: $global-indent*3;
+            display: inline-block;
+            
+            .modal__radio-container {
+                position: relative;
+                margin: 0 $global-indent*2;
+                
+                .modal__radio {
+                    opacity: 0;
+                    margin: 0;
+                    padding: 0;
+                    position: absolute;
+        
+                    & + label:before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        @include vertical-center;
+                        border-radius: 50%;
+                        display: inline-block;
+            
+                        border: 1px solid $border-color;
+                        width: 1em;
+                        height: 1em;
+            
+                        background: white;
+                    }
+                    & + label:after {
+                        content: "";
+                        position: absolute;
+                        left: 0.25em;
+                        @include vertical-center;
+                        border-radius: 50%;
+                        display: inline-block;
+            
+                        width: 0.5em;
+                        height: 0.5em;
+            
+                        background: white;
+                    }
+                    &:checked + label:after {
+                        background: $border-color;
+                    }
+        
+                }
+                .modal__radio-label {
+                    font-size: 1em;
+                    margin-left: 1.5em;
+                }
+            }
+        }
+        
+        .modal__btns-container {
+            @include flex-item-no-shrink;
+            .test-button {
+                width: $modal-test-button-width;
+            }
+            .test-button:not(:first-of-type) {
+                margin-left: $global-indent*2;
+            }
+        }
+        
+        .modal__progress {
+            @include flex-item-no-shrink;
+            width: $modal-parts-width;
+            @include flex-container($align-items: center);
+            margin-bottom: $global-indent*2;
+            .modal__progress-name {
+                color: $border-color;
+                flex: 0 0 10em;
+            }
+            .modal__progress-container {
+                flex: 1 0 auto;
+                @include progress-container;
+                margin: 0;
+                height: 1em;
+                position: relative;
+                background-color: $light-bg;
+    
+                .modal__progress-meter-diff {
+                    @include progress-meter;
+                    background-color: $progress-diff-color;
+                    margin: 0;
+                }
+                .modal__progress-meter {
+                    @include progress-meter;
+                    margin: 0;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                .modal__progress-done {
+                    position: absolute;
+                    top: 0;
+                    right: $global-indent;
+                    line-height: 100%;
+                }
+            }
+        }
+        
+        .modal__tab-container {
+            @include flex-item-no-shrink;
+            width: $modal-parts-width;
+            position: relative;
+            margin-top: $global-indent*2;
+            margin-bottom: $global-indent*2;
+            @include flex-container($justify-content: space-between);
+
+            .modal__tab {
+                flex: 1 1 auto;
+                &:not(:first-of-type) {
+                    margin-left: $global-indent;
+                }
+                float: left;
+            }
+            .modal__tab label {
+                width: 100%;
+                color: white;
+                text-align: center;
+                background: $modal-label-bg;
+                padding: $global-indent 0;
+                border-radius: $global-indent $global-indent 0 0;
+                margin-left: -1px;
+                position: relative;
+                left: 1px;
+            }
+            .modal__tab [type=radio] {
+                display: none;
+            }
+            .modal__tab-content {
+                position: absolute;
+                left: 0;
+                background-color: $light-bg;
+                right: 0;
+                bottom: 0;
+                padding: $global-indent $global-indent;
+                @include breakpoint(large) {
+                    padding: $global-indent $global-indent*3;
+                }
+                border-radius: 0 0 $global-indent $global-indent;
+                @include flex-container($flex-direction: column);
+                @include breakpoint(large) {
+                    @include flex-container($justify-content: space-between);
+                }
+    
+                
+                .modal__table-part {
+                    width: 100%;
+                    padding: 0 $global-indent*2;
+                    @include breakpoint(large) {
+                        width: $table-part-width;
+                        padding: 0;
+                    }
+                    @include flex-container($flex-direction: column, $align-items: stretch);
+                    .modal__table-row {
+                        margin-bottom: $global-indent;
+                        @include flex-container($justify-content: space-between);
+                        .modal__table-item {
+                
+                        }
+                    }
+                }
+    
+            }
+            .modal__tab-content--spa-eng {
+                top: $tab-content-spa-shift-small;
+                @include breakpoint(large) {
+                    top: $tab-content-spa-shift-large;
+                }
+            }
+            .modal__tab-content--words {
+                top: $tab-content-words-shift-small;
+                @include breakpoint(large) {
+                    top: $tab-content-words-shift-large;
+                }
+                overflow: auto;
+                
+                .modal__list {
+                    @include flex-container($flex-wrap: wrap);
+                    .modal__list-item {
+                        padding: $global-indent/2 $global-indent;
+                        flex: 1 1 $modal-list-word-width;
+                        text-align: center;
+                    }
+                }
+            }
+            
+            [type=radio]:checked ~ label {
+                background: $border-color;
+                z-index: 2;
+            }
+            [type=radio]:checked ~ label ~ .modal__tab-content {
+                z-index: 1;
+            }
+        }
+        .modal__tab-container--spa-eng {
+            height: $tab-container-spa-height-small;
+            @include breakpoint(large) {
+                height: $tab-container-spa-height-large;
+            }
+        }
+        .modal__tab-container--words {
+            height: $tab-container-words-height;
+            label {
+                padding: $global-indent $global-indent/2 !important;
+                height: $tab-label-words-height-small;
+                @include breakpoint(large) {
+                    height: auto;
+                }
+            }
+        }
+    
+        .modal__gramsummary {
+            @include flex-item-no-shrink;
+            width: $modal-parts-width;
+            border-radius: $global-indent;
+            overflow: hidden;
+            margin-top: $global-indent*2;
+            margin-bottom: $global-indent*4;
+        }
+        
+        .modal__table-h {
+            font-family: "Gotham Rounded Medium", sans-serif;
+            font-size: 1em;
+            background-color: $border-color;
+            color: white;
+            padding: $global-indent $global-indent;
+            @include breakpoint(large) {
+                padding: $global-indent $global-indent*4;
+            }
+            margin: 0;
+        }
+        .modal__table-container {
+            background-color: $light-bg;
+            padding: $global-indent $global-indent*2;
+            @include breakpoint(large) {
+                padding: $global-indent $global-indent*3;
+            }
+        }
+        .modal__table {
+            font-size: 1em;
+            margin: 0 !important;
+            
+            tbody {
+                border: none;
+            }
+            td {
+                background-color: $light-bg;
+                padding: $global-indent/2 $global-indent;
+            }
+        }
+        
+    }
+    .modal__window--start,
+    .modal__window--end {
+        @include breakpoint(large) {
+            padding-right: $modal-aside-width;
+            &:before {
+                content: '';
+                width: $modal-aside-width;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 0;
+        
+                @include bg-img($letter-color-a, $icon-letter-a);
+            }
+        }
+    }
+}
+
+//=============================================================================
+//---------- LOGIN/SIGNUP FORM ------------------------------------------------
+.iform {
+    font-family: "Gotham Rounded Medium", sans-serif;
+    width: $iform-width-small;
+    @include breakpoint(medium) {
+        width: $iform-width-medium;
+    }
+    margin: $global-indent*2 auto 0;
+    label {
+        font-size: $iform-label-font-size;
+    }
+    .iform__fld {
+        font-size: $iform-field-font-size;
+        padding: $global-indent*2;
+        height: $iform-field-height;
+        border: $iform-field-border-width solid $iform-field-border-color;
+        border-radius: $iform-field-border-radius;
+        margin: 0;
+        margin-bottom: $global-indent;
+    }
+    .iform__btn {
+        width: 100%;
+        margin-top: $global-indent*2;
+        padding: $global-indent*2;
+        background-color: $enter-btns-signup-bg;
+        color: white;
+        border: none;
+        border-radius: $iform-field-border-radius;
+    }
+}
+
+//=============================================================================
+//---------- LOGIN/SIGNUP LINKS -----------------------------------------------
+.acc-links {
+    width: 100%;
+    margin: $global-indent*2 auto;
+    font-size: $acc-links-font-size;
+    text-align: center;
+    .acc-links__link {
+        color: $iform-field-border-color;
+        &:not(:first-of-type):before {
+            content: '|';
+            color: $iform-field-border-color;
+            margin: 0 $global-indent*2;
+        }
+    }
+}
+
+//
+//
+//::-webkit-scrollbar {
+//    width: 10px;
+//    padding: 1em;
+//}
+//::-webkit-scrollbar-track {
+//    background-color: white;
+//    //border-left: 1px solid #ccc;
+//}
+//::-webkit-scrollbar-thumb {
+//    background-color: $border-color;
+//    border-radius: 0.5em;
+//}

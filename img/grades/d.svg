@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="300px" height="500px" viewBox="125 43 250 414" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <rect x="125" y="43" width="250" height="414" style="fill: rgb(255, 140, 75);"/>
+    <g id="_1952917695248">
+      <path d="M 235 380 L 239 387 L 247 389 L 242 395 L 242 403 L 235 400 L 228 403 L 228 395 L 223 389 L 231 387 Z" style="fill: white;"/>
+      <path d="M 265 380 L 269 387 L 277 389 L 272 395 L 272 403 L 265 400 L 258 403 L 258 395 L 253 389 L 261 387 Z" style="fill: white;"/>
+    </g>
+    <path d="M239 178c16,0 29,3 40,10 11,7 19,16 25,27 5,11 8,23 8,35 0,12 -3,24 -8,35 -6,11 -14,20 -25,27 -11,7 -24,10 -40,10l-42 0c-2,0 -5,0 -7,-2 -1,-2 -2,-4 -2,-7l0 -126c0,-3 1,-5 2,-7 2,-2 5,-2 7,-2l42 0zm-2 127c11,0 21,-2 30,-7 8,-5 15,-11 19,-19 5,-9 8,-18 8,-29 0,-11 -3,-20 -8,-29 -4,-8 -11,-14 -19,-19 -9,-5 -19,-7 -30,-7l-30 0 0 110 30 0z" style="fill: white; fill-rule: nonzero;"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="300px" height="500px" viewBox="125 43 250 414" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <rect x="125" y="43" width="250" height="414" style="fill: rgb(230, 115, 118);"/>
+    <path d="M 250 380 L 254 387 L 262 389 L 257 395 L 257 403 L 250 400 L 243 403 L 243 395 L 238 389 L 246 387 Z" style="fill: white;"/>
+    <path d="M219 241l64 0c3,0 5,0 7,2 1,2 2,4 2,6 0,3 -1,5 -2,7 -2,1 -4,2 -7,2l-64 0 0 56c0,2 -1,5 -2,6 -2,2 -5,3 -7,3 -3,0 -5,-1 -7,-3 -2,-1 -3,-4 -3,-6l0 -127c0,-3 1,-5 3,-7 2,-2 4,-3 7,-3l81 0c2,0 4,1 6,3 2,1 3,3 3,6 0,2 -1,4 -3,6 -2,2 -4,3 -6,3l-72 0 0 46z" style="fill: white; fill-rule: nonzero;"/>
+  </g>
+</svg>

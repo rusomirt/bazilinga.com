@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg style="shape-rendering: geometricPrecision; text-rendering: geometricPrecision; fill-rule: evenodd; clip-rule: evenodd;" width="300px" height="500px" viewBox="125 43 250 414" xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_x0020_1">
+    <rect x="125" y="43" width="250" height="414" style="fill: rgb(65, 82, 136);"/>
+    <g id="_2051827268752">
+      <path d="M 220 381 L 224 388 L 232 390 L 227 396 L 227 404 L 220 401 L 213 404 L 213 396 L 208 390 L 216 388 Z" style="fill: white;"/>
+      <path d="M 250 381 L 254 388 L 262 390 L 257 396 L 257 404 L 250 401 L 243 404 L 243 396 L 238 390 L 246 388 Z" style="fill: white;"/>
+      <path d="M 280 381 L 284 388 L 292 390 L 287 396 L 287 404 L 280 401 L 273 404 L 273 396 L 268 390 L 276 388 Z" style="fill: white;"/>
+    </g>
+    <g id="_2051827266544">
+      <path d="M 205 352 L 209 359 L 217 361 L 212 367 L 212 375 L 205 372 L 197 375 L 198 367 L 193 361 L 201 359 Z" style="fill: white;"/>
+      <path d="M 235 352 L 239 359 L 247 361 L 242 367 L 242 375 L 235 372 L 228 375 L 228 367 L 223 361 L 231 359 Z" style="fill: white;"/>
+      <path d="M 265 352 L 269 359 L 277 361 L 272 367 L 272 375 L 265 372 L 258 375 L 258 367 L 253 361 L 261 359 Z" style="fill: white;"/>
+      <path d="M 295 352 L 299 359 L 307 361 L 302 367 L 303 375 L 295 372 L 288 375 L 288 367 L 283 361 L 291 359 Z" style="fill: white;"/>
+    </g>
+    <path d="M300 176c3,0 5,1 7,3 2,2 3,4 3,7l0 82c0,12 -3,22 -9,31 -6,8 -13,15 -23,19 -9,4 -18,6 -28,6 -10,0 -19,-2 -28,-6 -10,-4 -17,-11 -23,-19 -6,-9 -9,-19 -9,-31l0 -82c0,-3 1,-5 3,-7 2,-2 4,-3 7,-3 2,0 5,1 6,3 2,2 3,4 3,7l0 82c0,8 2,16 6,21 4,6 9,11 15,13 6,3 13,5 20,5 7,0 14,-2 20,-5 6,-2 11,-7 15,-13 4,-5 6,-13 6,-21l0 -82c0,-3 1,-5 2,-7 2,-2 4,-3 7,-3z" style="fill: white; fill-rule: nonzero;"/>
+  </g>
+</svg>

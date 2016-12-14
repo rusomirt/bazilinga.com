@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="dist/foundation.css">
+    <link rel="stylesheet" href="dist/style.css">
+</head>
+<body>
+
+<!--====================================================================-->
+<!---------- HEADER ------------------------------------------------------>
+<header class="header-login">
+    <div class="header-home__wrap">
+    
+        <div class="topbar topbar--break-m-center">
+            <div class="topbar__left">
+                <div class="topbar__logo">
+                    <a href="#">
+                        <img src="img/bazilinga-logo.png" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="topbar__right">
+                <button type="button" class="topbar__enter-btn">
+                    Login
+                </button>
+                <button type="button" class="topbar__enter-btn">
+                    Sign Up
+                </button>
+            </div>
+        </div>
+        
+        <div class="site-motto">
+            <p class="site-motto__primary">Login to Bazilinga</p>
+        </div>
+        
+        <form class="iform">
+            <label for="signup-name">Username (4-24 characters)</label>
+            <input type="text" placeholder="Username" class="iform__fld" id="signup-name">
+            <label for="signup-email">Email (should be a valid email address)</label>
+            <input type="text" placeholder="Email" class="iform__fld" id="signup-email">
+            <label for="signup-password">Password (4-32 characters)</label>
+            <input type="text" placeholder="Password" class="iform__fld" id="signup-password">
+            <input type="submit" value="SIGN UP" class="iform__btn">
+        </form>
+
+        <div class="enter-btns">
+            <button class="enter-btns__btn enter-btns__btn--tryfb">TRY WITH FACEBOOK</button>
+        </div>
+        
+        <div class="acc-links">
+            <a class="acc-links__link" href="#">Already have an account? Login</a>
+        </div>
+        
+    </div>
+</header>
+
+<!--====================================================================-->
+<!---------- SCRIPTS ----------------------------------------------------->
+<!-- jQuery CDN (must be loaded BEFORE foundation scripts) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script src="dist/plugins/foundation.core.js"></script>
+
+<script>
+    $(document).foundation();
+</script>
+
+</body>
+</html>
+
